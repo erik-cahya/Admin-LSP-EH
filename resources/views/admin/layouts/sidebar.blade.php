@@ -1,6 +1,6 @@
 <div class="mdk-drawer  js-mdk-drawer" id="default-drawer" data-align="start">
     <div class="mdk-drawer__content">
-        <div class="sidebar sidebar-light sidebar-left sidebar-p-t" data-perfect-scrollbar>
+        <div class="sidebar sidebar-dark bg-dark sidebar-left sidebar-p-t" data-perfect-scrollbar>
 
 
 

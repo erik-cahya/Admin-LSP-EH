@@ -81,15 +81,15 @@
     <!-- // END header-layout -->
 
     <!-- App Settings FAB -->
-    <div id="app-settings">
+    {{-- <div id="app-settings">
         <app-settings layout-active="default"
             :layout-location="{
-                'default': 'dashboard-quick-access.html',
+                'default': 'dashboard-quic  k-access.html',
                 'fixed': 'fixed-dashboard-quick-access.html',
                 'fluid': 'fluid-dashboard-quick-access.html',
                 'mini': 'mini-dashboard-quick-access.html'
             }"></app-settings>
-    </div>
+    </div> --}}
 
     <!-- jQuery -->
     <script src="{{ asset('admin_panel') }}/assets/vendor/jquery.min.js"></script>
@@ -115,7 +115,11 @@
     <script src="{{ asset('admin_panel') }}/assets/js/app.js"></script>
 
     <!-- App Settings (safe to remove) -->
-    <script src="{{ asset('admin_panel') }}/assets/js/app-settings.js"></script>
+    {{-- <script src="{{ asset('admin_panel') }}/assets/js/app-settings.js"></script> --}}
+
+
+
+    @yield('modal')
 
 </body>
 

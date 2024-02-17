@@ -22,4 +22,8 @@ Route::get('/', function () {
     return view('admin.dashboard.index');
 });
 
-Route::get('/qr-code', [QRCodeController::class, 'index']);
+
+Route::resource('/qr-code', QRCodeController::class);
+
+Route::get('/download-qrcode/{id}', [QRCodeController::class, 'download'])->name('download.qrcode');
+Route::get('/download-qr/{content}', [QRCodeController::class, 'downloadQR'])->name('download.qr');

@@ -40,7 +40,10 @@
                             <button type="button" class="btn btn-sm btn-secondary" data-toggle="modal"
                                 data-target="#modal-standard-{{ $qr->id }}">View QR</button>
                             <a href="#" class="btn btn-sm btn-primary">EDIT</a>
-                            <a href="#" class="btn btn-sm btn-danger">DELETE</a>
+
+                            <button type="button" onclick="deleteQR({{ $qr->id }})"class="btn btn-sm btn-danger">
+                                DELETE
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -65,6 +68,9 @@
                                     src="{{ asset('admin_panel') }}/assets/images/stack-logo-blue.svg" width="25"
                                     alt="FlowDash">
                                 <span>QR Code Generator</span>
+
+
+
                             </a>
                         </div>
 
@@ -130,4 +136,44 @@
             </script>
         </div> <!-- // END .modal -->
     @endforeach
+
+    <script>
+        $(document).ready(function() {
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            // Delete User Modal (SweelAlert2)
+            deleteQR = (id) => {
+                console.log(id);
+                Swal.fire({
+                    title: 'Hapus data',
+                    text: `Yakin ingin menghapus QR?`,
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Ya, hapus QR!',
+                    cancelButtonText: 'Batalkan'
+                }).then((isDelete) => {
+                    if (isDelete.isConfirmed) {
+                        $.ajax({
+                            url: "/qr-code/" + id,
+                            method: 'DELETE',
+                            contentType: 'application/json', // Changed content type to 'application/json'
+                            success: function() {
+                                document.location.href = '/qr-code';
+                            },
+                            error: function(xhr, status, error) {
+                                document.location.href = '/qr-code';
+                            }
+                        })
+                    }
+                })
+            };
+
+        });
+    </script>
 @endsection

@@ -313,8 +313,8 @@ textarea {
     line-height: inherit;
 }
 
+
 [dir] input,
-[dir] button,
 [dir] select,
 [dir] optgroup,
 [dir] textarea {

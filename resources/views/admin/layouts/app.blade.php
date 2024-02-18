@@ -3,6 +3,7 @@
 
 <head>
     <meta charset="utf-8">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Quick Access</title>
@@ -40,6 +41,11 @@
         gtag('js', new Date());
         gtag('config', 'UA-133433427-1');
     </script>
+
+
+    <script src="{{ asset('js/sweetalert2.min.js') }}"></script>
+    <link href="{{ asset('css/sweetalert2.min.css') }}" rel="stylesheet">
+
 
 </head>
 
@@ -114,12 +120,12 @@
     <script src="{{ asset('admin_panel') }}/assets/js/sidebar-mini.js"></script>
     <script src="{{ asset('admin_panel') }}/assets/js/app.js"></script>
 
-    <!-- App Settings (safe to remove) -->
-    {{-- <script src="{{ asset('admin_panel') }}/assets/js/app-settings.js"></script> --}}
-
-
-
     @yield('modal')
+
+    @include('sweetalert::alert')
+
+
+
 
 </body>
 

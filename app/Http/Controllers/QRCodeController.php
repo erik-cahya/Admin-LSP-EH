@@ -17,6 +17,11 @@ use Endroid\QrCode\Label\Label;
 use Endroid\QrCode\Logo\Logo;
 use Endroid\QrCode\RoundBlockSizeMode\RoundBlockSizeModeEnlarge;
 use Endroid\QrCode\Writer\PngWriter;
+use Illuminate\Support\Facades\Redirect;
+use RealRashid\SweetAlert\Facades\Alert;
+use Illuminate\Support\Facades\File;
+
+
 
 
 
@@ -31,16 +36,6 @@ class QRCodeController extends Controller
     public function index()
     {
         $data['data_qr'] = DB::table('qr_code')->get();
-
-        // Simpan nama file QR code ke dalam database
-        // (Anda harus menyesuaikan ini dengan struktur database Anda)
-        // Contoh:
-        // $qrCodeModel = new QrCodeModel;
-        // $qrCodeModel->file_name = $fileName;
-        // $qrCodeModel->save();
-
-        // Kirim nama file QR code ke view
-        // return view('admin.qr-code-generator.index', compact('fileName'));
 
         return view('admin.qr-code-generator.index', $data);
     }
@@ -93,6 +88,7 @@ class QRCodeController extends Controller
             'updated_at' => now(),
         ]);
 
+        toast('QR Code Berhasil Dibuat', 'success');
         return redirect('/qr-code');
     }
 
@@ -138,6 +134,10 @@ class QRCodeController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $imageFile = DB::table('qr_code')->where('id', $id)->value('qr_image');
+        DB::table('qr_code')->where('id', $id)->delete();
+        File::delete(public_path('img/qr_codes/' . $imageFile));
+        toast('QR Code Berhasil Dihapus', 'success');
+        return Redirect::to('/qr-code');
     }
 }

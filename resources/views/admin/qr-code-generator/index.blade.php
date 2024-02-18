@@ -26,7 +26,7 @@
                     <div class="stories-card__content d-flex align-items-center flex-wrap">
 
                         <div class="stories-card__title flex">
-                            <h5 class="card-title m-0"><a href="" class="headings-color">{{ $qr->name }}</a></h5>
+                            <h5 class="card-title m-0">{{ $qr->name }}</h5>
                             <small class="text-dark-gray">{{ Str::limit($qr->url, 30) }}</small>
 
                         </div>
@@ -34,6 +34,7 @@
                             <div class="mr-3 text-dark-gray stories-card__date">
                                 <small>11 Nov, 2018 07:46 AM</small>
                             </div>
+                            <img src="{{ asset('img/qr_codes/' . $qr->qr_image) }}" alt="" width="60px">
                         </div>
                         <div class="ml-auto">
                             <button type="button" class="btn btn-sm btn-secondary" data-toggle="modal"
@@ -56,39 +57,39 @@
     <div id="modal-signup" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
-                <div class="modal-body
+                <div class="modal-body">
                     <div class="px-3">
-                    <div class="d-flex justify-content-center mt-2 mb-4 navbar-light">
-                        <a href="javascript:void(0)" class="navbar-brand" style="min-width: 0">
-                            <img class="navbar-brand-icon"
-                                src="{{ asset('admin_panel') }}/assets/images/stack-logo-blue.svg" width="25"
-                                alt="FlowDash">
-                            <span>QR Code Generator</span>
-                        </a>
+                        <div class="d-flex justify-content-center mt-2 mb-4 navbar-light">
+                            <a href="javascript:void(0)" class="navbar-brand" style="min-width: 0">
+                                <img class="navbar-brand-icon"
+                                    src="{{ asset('admin_panel') }}/assets/images/stack-logo-blue.svg" width="25"
+                                    alt="FlowDash">
+                                <span>QR Code Generator</span>
+                            </a>
+                        </div>
+
+                        <form action="/qr-code" method="POST" enctype="multipart/form-data">
+                            @csrf
+                            <div class="form-group">
+                                <label for="name">Name:</label>
+                                <input class="form-control" type="text" id="name" name="name" required=""
+                                    placeholder="Input Nama QR" />
+                            </div>
+                            <div class="form-group">
+                                <label for="url">URL:</label>
+                                <input class="form-control" type="text" id="url" name="url" required=""
+                                    placeholder="Masukkan Link/URL" />
+                            </div>
+
+                            <div class="form-group text-center">
+                                <button class="btn btn-primary" type="submit">Create New QR Code</button>
+                            </div>
+                        </form>
+
                     </div>
-
-                    <form action="/qr-code" method="POST" enctype="multipart/form-data">
-                        @csrf
-                        <div class="form-group">
-                            <label for="name">Name:</label>
-                            <input class="form-control" type="text" id="name" name="name" required=""
-                                placeholder="Input Nama QR" />
-                        </div>
-                        <div class="form-group">
-                            <label for="url">URL:</label>
-                            <input class="form-control" type="text" id="url" name="url" required=""
-                                placeholder="Masukkan Link/URL" />
-                        </div>
-
-                        <div class="form-group text-center">
-                            <button class="btn btn-primary" type="submit">Create New QR Code</button>
-                        </div>
-                    </form>
-
-                </div>
-            </div> <!-- // END .modal-body -->
-        </div> <!-- // END .modal-content -->
-    </div> <!-- // END .modal-dialog -->
+                </div> <!-- // END .modal-body -->
+            </div> <!-- // END .modal-content -->
+        </div> <!-- // END .modal-dialog -->
     </div> <!-- // END .modal -->
 
     {{-- View QR Modal --}}
@@ -105,15 +106,28 @@
                     </div> <!-- // END .modal-header -->
 
                     <div class="modal-body d-flex justify-content-center">
-                        {!! QrCode::size(200)->generate($qr->url) !!}
+                        <img src="{{ asset('img/qr_codes/' . $qr->qr_image) }}" alt="" width="200px">
                     </div> <!-- // END .modal-body -->
 
                     <div class="modal-footer">
                         <button type="button" class="btn btn-light" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
+                        <button type="button" class="btn btn-primary" id="downloadButton-{{ $qr->id }}">Download
+                            QR</button>
                     </div> <!-- // END .modal-footer -->
                 </div> <!-- // END .modal-content -->
             </div> <!-- // END .modal-dialog -->
+            <script>
+                document.getElementById("downloadButton-{{ $qr->id }}").addEventListener("click", function() {
+                    var modalBody = this.closest('.modal-content').querySelector('.modal-body');
+                    var imageUrl = modalBody.querySelector('img').getAttribute('src');
+                    var a = document.createElement('a');
+                    a.href = imageUrl;
+                    a.download = 'qr_code.png';
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                });
+            </script>
         </div> <!-- // END .modal -->
     @endforeach
 @endsection

@@ -17,6 +17,7 @@ class CreateQrCodeTable extends Migration
             $table->id();
             $table->string('name');
             $table->text('url');
+            $table->text('qr_image');
             $table->timestamps();
         });
     }

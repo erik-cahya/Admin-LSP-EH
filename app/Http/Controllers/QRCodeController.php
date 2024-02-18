@@ -7,8 +7,16 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Response;
 
-use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use Illuminate\Support\Facades\Storage;
+
+use Endroid\QrCode\Color\Color;
+use Endroid\QrCode\ErrorCorrectionLevel\ErrorCorrectionLevelHigh;
+use Endroid\QrCode\Encoding\Encoding;
+use Endroid\QrCode\QrCode;
+use Endroid\QrCode\Label\Label;
+use Endroid\QrCode\Logo\Logo;
+use Endroid\QrCode\RoundBlockSizeMode\RoundBlockSizeModeEnlarge;
+use Endroid\QrCode\Writer\PngWriter;
 
 
 
@@ -23,6 +31,17 @@ class QRCodeController extends Controller
     public function index()
     {
         $data['data_qr'] = DB::table('qr_code')->get();
+
+        // Simpan nama file QR code ke dalam database
+        // (Anda harus menyesuaikan ini dengan struktur database Anda)
+        // Contoh:
+        // $qrCodeModel = new QrCodeModel;
+        // $qrCodeModel->file_name = $fileName;
+        // $qrCodeModel->save();
+
+        // Kirim nama file QR code ke view
+        // return view('admin.qr-code-generator.index', compact('fileName'));
+
         return view('admin.qr-code-generator.index', $data);
     }
 
@@ -44,15 +63,37 @@ class QRCodeController extends Controller
      */
     public function store(Request $request)
     {
+        // Ambil data dari database, misalnya URL
+        $dataUrl = $request->url;
+
+        // Generate QR code dari data yang diambil dari database
+        $qrCode = QrCode::create($dataUrl)
+            ->setEncoding(new Encoding('UTF-8'))
+            ->setErrorCorrectionLevel(new ErrorCorrectionLevelHigh())
+            ->setSize(500)
+            ->setMargin(10)
+            ->setRoundBlockSizeMode(new RoundBlockSizeModeEnlarge)
+            ->setForegroundColor(new Color(0, 0, 0))
+            ->setBackgroundColor(new Color(255, 255, 255));
+
+        // Tulis QR code ke dalam sebuah buffer
+        $writer = new PngWriter();
+        $buffer = $writer->write($qrCode)->getString();
+
+        // Simpan buffer ke dalam file gambar di server
+        $fileName = 'qr_code_' . time() . '.png';
+        file_put_contents(public_path('/img/qr_codes/' . $fileName), $buffer);
+
         // dd($request->all());
         DB::table('qr_code')->insert([
             'name' => $request->name,
             'url' => $request->url,
+            'qr_image' => $fileName,
             'created_at' => now(),
             'updated_at' => now(),
         ]);
 
-        return view('admin.qr-code-generator.index');
+        return redirect('/qr-code');
     }
 
     /**

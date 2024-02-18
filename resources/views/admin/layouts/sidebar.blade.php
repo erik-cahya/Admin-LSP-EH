@@ -38,7 +38,7 @@
             <div class="sidebar-heading">Menu</div>
             <ul class="sidebar-menu">
 
-                <li class="sidebar-menu-item active">
+                <li class="sidebar-menu-item {{ request()->segment(1) == '' ? 'active' : '' }}">
                     <a class="sidebar-menu-button" href="/">
                         <i class="sidebar-menu-icon sidebar-menu-icon--left material-icons">dvr</i>
                         <span class="sidebar-menu-text">Dashboard</span>
@@ -49,7 +49,7 @@
             <div class="sidebar-heading">Features</div>
             <div class="sidebar-block p-0 mb-0">
                 <ul class="sidebar-menu" id="components_menu">
-                    <li class="sidebar-menu-item">
+                    <li class="sidebar-menu-item {{ request()->segment(1) == 'qr-code' ? 'active' : '' }}">
                         <a class="sidebar-menu-button" href="/qr-code">
                             <i
                                 class="sidebar-menu-icon sidebar-menu-icon--left material-symbols-outlined">qr_code_scanner</i>

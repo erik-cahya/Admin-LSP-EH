@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DokumenController;
 use App\Http\Controllers\QRCodeController;
 use Illuminate\Support\Facades\Route;
 
@@ -27,3 +28,5 @@ Route::resource('/qr-code', QRCodeController::class);
 
 Route::get('/download-qrcode/{id}', [QRCodeController::class, 'download'])->name('download.qrcode');
 Route::get('/download-qr/{content}', [QRCodeController::class, 'downloadQR'])->name('download.qr');
+
+Route::get('surat-tugas-asesor', [DokumenController::class, 'index']);

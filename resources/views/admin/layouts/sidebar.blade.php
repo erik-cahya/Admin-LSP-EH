@@ -46,6 +46,20 @@
                 </li>
 
             </ul>
+            <div class="sidebar-heading">Dokumen</div>
+            <div class="sidebar-block p-0 mb-0">
+                <ul class="sidebar-menu" id="components_menu">
+                    <li class="sidebar-menu-item {{ request()->segment(1) == 'surat-tugas-asesor' ? 'active' : '' }}">
+                        <a class="sidebar-menu-button" href="surat-tugas-asesor">
+                            <i
+                                class="sidebar-menu-icon sidebar-menu-icon--left material-symbols-outlined">qr_code_scanner</i>
+
+                            <span class="sidebar-menu-text">Surat Tugas Asesor</span>
+                        </a>
+                    </li>
+
+                </ul>
+            </div>
             <div class="sidebar-heading">Features</div>
             <div class="sidebar-block p-0 mb-0">
                 <ul class="sidebar-menu" id="components_menu">

@@ -1,4 +1,4 @@
-@extends('admin.layouts.app')
+@extends('admin.layouts.master')
 @section('content')
     <div class="container-fluid page__heading-container">
         <div class="page__heading d-flex align-items-center">
@@ -55,7 +55,7 @@
     </div>
 @endsection
 
-@section('modal')
+@section('js_partials')
     <!-- Sign Up Modal -->
     <div id="modal-signup" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">

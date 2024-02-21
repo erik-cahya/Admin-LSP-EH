@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Surat;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 
-
-class DokumenController extends Controller
+class SuratTugasAsesorController extends Controller
 {
     public function index()
     {
@@ -25,6 +25,11 @@ class DokumenController extends Controller
         // Store the document in public/surat folder
         File::put(public_path('surat/' . $fileName), $doc);
 
-        return view('admin.dokumen.surat_tugas_asesor');
+        return view('admin.surat.surat-tugas-asesor.index');
+    }
+
+    public function createSurat()
+    {
+        return view('admin.surat.surat-tugas-asesor.create');
     }
 }

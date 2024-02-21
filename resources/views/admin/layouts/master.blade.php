@@ -8,6 +8,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Quick Access</title>
 
+
+
+
     <!-- Prevent the demo from appearing in search engines -->
     <meta name="robots" content="noindex">
 
@@ -16,7 +19,7 @@
 
     <!-- App CSS -->
     <link type="text/css" href="{{ asset('admin_panel') }}/assets/css/app.css" rel="stylesheet">
-    <link type="text/css" href="{{ asset('admin_panel') }}/assets/css/app.rtl.css" rel="stylesheet">
+    {{-- <link type="text/css" href="{{ asset('admin_panel') }}/assets/css/app.rtl.css" rel="stylesheet"> --}}
 
     <!-- Material Design Icons -->
     <link type="text/css" href="{{ asset('admin_panel') }}/assets/css/vendor-material-icons.css" rel="stylesheet">
@@ -32,7 +35,7 @@
 
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-133433427-1"></script>
-    <script>
+    {{-- <script>
         window.dataLayer = window.dataLayer || [];
 
         function gtag() {
@@ -40,13 +43,15 @@
         }
         gtag('js', new Date());
         gtag('config', 'UA-133433427-1');
-    </script>
+    </script> --}}
 
 
+    {{-- Sweetalert --}}
     <script src="{{ asset('js/sweetalert2.min.js') }}"></script>
     <link href="{{ asset('css/sweetalert2.min.css') }}" rel="stylesheet">
 
-
+    {{-- Data Tables --}}
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.0.0/css/dataTables.dataTables.css">
 </head>
 
 <body class="layout-default">
@@ -118,9 +123,13 @@
     <script src="{{ asset('admin_panel') }}/assets/js/check-selected-row.js"></script>
     <script src="{{ asset('admin_panel') }}/assets/js/dropdown.js"></script>
     <script src="{{ asset('admin_panel') }}/assets/js/sidebar-mini.js"></script>
+
+
+
+
     <script src="{{ asset('admin_panel') }}/assets/js/app.js"></script>
 
-    @yield('modal')
+    @yield('js_partials')
 
     @include('sweetalert::alert')
 

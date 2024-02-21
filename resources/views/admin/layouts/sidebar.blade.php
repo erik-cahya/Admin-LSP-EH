@@ -47,19 +47,34 @@
 
             </ul>
             <div class="sidebar-heading">Dokumen</div>
+
             <div class="sidebar-block p-0 mb-0">
                 <ul class="sidebar-menu" id="components_menu">
-                    <li class="sidebar-menu-item {{ request()->segment(1) == 'surat-tugas-asesor' ? 'active' : '' }}">
-                        <a class="sidebar-menu-button" href="surat-tugas-asesor">
-                            <i
-                                class="sidebar-menu-icon sidebar-menu-icon--left material-symbols-outlined">qr_code_scanner</i>
-
+                    <li
+                        class="sidebar-menu-item {{ request()->segment(1) == 'surat-tugas-asesor' ? 'active open' : '' }}">
+                        <a class="sidebar-menu-button" data-toggle="collapse" href="#dashboards_menu">
+                            <i class="sidebar-menu-icon sidebar-menu-icon--left material-icons">dvr</i>
                             <span class="sidebar-menu-text">Surat Tugas Asesor</span>
+                            <span class="ml-auto sidebar-menu-toggle-icon"></span>
                         </a>
-                    </li>
 
+                        <ul class="sidebar-submenu collapse show" id="dashboards_menu">
+                            <li class="sidebar-menu-item {{ request()->segment(2) == '' ? 'active' : '' }}">
+                                <a class="sidebar-menu-button" href="{{ route('surat-tugas-asesor.view') }}">
+                                    <span class="sidebar-menu-text">Lihat Surat</span>
+                                </a>
+                            </li>
+                            <li class="sidebar-menu-item {{ request()->segment(2) == 'create' ? 'active' : '' }}">
+                                <a class="sidebar-menu-button" href="{{ route('surat-tugas-asesor.create') }}">
+                                    <span class="sidebar-menu-text">Create Surat</span>
+                                </a>
+                            </li>
+                        </ul>
                 </ul>
+
+                </li>
             </div>
+
             <div class="sidebar-heading">Features</div>
             <div class="sidebar-block p-0 mb-0">
                 <ul class="sidebar-menu" id="components_menu">
